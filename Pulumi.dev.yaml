@@ -1,0 +1,5 @@
+config:
+  azure:environment: public
+  azure:location: WestEurope
+  metadata:program: cg
+  metadata:service: plmtr
