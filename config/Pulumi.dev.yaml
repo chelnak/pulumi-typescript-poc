@@ -3,3 +3,4 @@ config:
   azure:location: WestEurope
   metadata:program: cg
   metadata:service: plmtr
+  metadata:environments: [at, test, test2, demo]

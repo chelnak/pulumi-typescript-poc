@@ -12,16 +12,15 @@ function subnet(
   networkArgs: INetworkArgs,
   opts?: pulumi.ResourceOptions,
 ): azure.network.Subnet[] {
-
   const subnets = [];
   let count = 0;
-  for (let i = startFromAddress; i < (startFromAddress + numberOfSubnets); i++) {
+  for (let i = startFromAddress; i < (startFromAddress + numberOfSubnets); i += 1) {
     const subnetName = `${name}-${count}`;
     const addressPrefix = `${networkArgs.virtualNetowrkPrefix}.${i}.0${networkArgs.subnetCIDR}`;
     logger.info(`Creating subnet ${subnetName} with address prefix of ${addressPrefix}`);
 
     // Increment naming count
-    count++;
+    count += 1;
     subnets.push(
       new azure.network.Subnet(subnetName, {
         addressPrefix,
@@ -41,14 +40,13 @@ function subnet(
           },
         }],
         resourceGroupName: networkArgs.resourceGroupName,
-      }, opts));
-
+      }, opts),
+    );
   }
   return subnets;
 }
 
 export class VirtualNetwork extends pulumi.ComponentResource {
-
   readonly subnetResourceIds: pulumi.Output<string>[];
 
   /**
@@ -67,27 +65,28 @@ export class VirtualNetwork extends pulumi.ComponentResource {
     const defaultResourceOptions: pulumi.ResourceOptions = { parent: this };
 
     // Set some reasonable defaults for networkArgs
-    networkArgs.virtualNetowrkPrefix = networkArgs.virtualNetowrkPrefix || '10.0';
-    networkArgs.virtualNetworkCIDR = networkArgs.virtualNetworkCIDR || '/16';
-    networkArgs.subnetCIDR = networkArgs.subnetCIDR || '/24';
-    networkArgs.gatewaySubnetCount = networkArgs.gatewaySubnetCount || 1;
-    networkArgs.managementSubnetCount = networkArgs.managementSubnetCount || 1;
-    networkArgs.internalSubnetCount = networkArgs.internalSubnetCount || 1;
-    networkArgs.externalSubnetCount = networkArgs.externalSubnetCount || 1;
+    const n = networkArgs;
+    n.virtualNetowrkPrefix = networkArgs.virtualNetowrkPrefix || '10.0';
+    n.virtualNetworkCIDR = networkArgs.virtualNetworkCIDR || '/16';
+    n.subnetCIDR = networkArgs.subnetCIDR || '/24';
+    n.gatewaySubnetCount = networkArgs.gatewaySubnetCount || 0;
+    n.managementSubnetCount = networkArgs.managementSubnetCount || 0;
+    n.internalSubnetCount = networkArgs.internalSubnetCount || 0;
+    n.externalSubnetCount = networkArgs.externalSubnetCount || 0;
 
-    logger.info(`Creating virtual network ${networkArgs.name}`);
+    logger.info(`Creating virtual network ${n.name}`);
     const virtualNetwork = new azure.network.VirtualNetwork('virtual-network', {
-      name: networkArgs.name,
-      resourceGroupName: networkArgs.resourceGroupName,
-      addressSpaces: [`${networkArgs.virtualNetowrkPrefix}.0.0${networkArgs.virtualNetworkCIDR}`],
+      name: n.name,
+      resourceGroupName: n.resourceGroupName,
+      addressSpaces: [`${n.virtualNetowrkPrefix}.0.0${n.virtualNetworkCIDR}`],
     }, defaultResourceOptions);
 
-    const gateway = subnet('gw-sn', networkArgs.gatewaySubnetCount, 0, virtualNetwork.name, networkArgs, defaultResourceOptions);
-    const management = subnet('mgmt-sn', networkArgs.managementSubnetCount, 5, virtualNetwork.name, networkArgs, defaultResourceOptions);
-    const external = subnet('ext-sn', networkArgs.externalSubnetCount, 10, virtualNetwork.name, networkArgs, defaultResourceOptions);
-    const internal = subnet('int-sn', networkArgs.internalSubnetCount, 15, virtualNetwork.name, networkArgs, defaultResourceOptions);
+    const gateway = subnet('gw-sn', n.gatewaySubnetCount, 0, virtualNetwork.name, n, defaultResourceOptions);
+    const management = subnet('mgmt-sn', n.managementSubnetCount, 5, virtualNetwork.name, n, defaultResourceOptions);
+    const external = subnet('ext-sn', n.externalSubnetCount, 10, virtualNetwork.name, n, defaultResourceOptions);
+    const internal = subnet('int-sn', n.internalSubnetCount, 15, virtualNetwork.name, n, defaultResourceOptions);
 
-    this.subnetResourceIds = gateway.concat(management, external, internal).map(s => s.id);
+    this.subnetResourceIds = gateway.concat(management, external, internal).map((s) => s.id);
 
     // For dependency tracking, register output properties for this component
     this.registerOutputs({

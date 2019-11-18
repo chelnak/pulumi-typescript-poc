@@ -1,3 +1,5 @@
 name: pulumi-typescript-poc
 runtime: nodejs
 description: A minimal Azure TypeScript Pulumi program
+main: src/
+config: config/

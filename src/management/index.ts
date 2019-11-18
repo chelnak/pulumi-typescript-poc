@@ -1,12 +1,11 @@
 import * as pulumi from '@pulumi/pulumi';
 import * as azure from '@pulumi/azure';
 import * as network from '../network';
-import { LayerArgs } from '../interfaces/management';
+import { ILayerArgs } from '../interfaces/management';
 
 const logger = pulumi.log;
 
 export class ManagementLayer extends pulumi.ComponentResource {
-
   /**
    * Creates cloud platform management layer
    * @param name The _unique_ name of the resource.
@@ -14,7 +13,7 @@ export class ManagementLayer extends pulumi.ComponentResource {
    * @param opts A bag of options that control this resource's behavior.
    */
 
-  constructor(name: string, layerArgs: LayerArgs, opts?: pulumi.ResourceOptions) {
+  constructor(name: string, layerArgs: ILayerArgs, opts?: pulumi.ResourceOptions) {
     const inputs: pulumi.Inputs = {
       options: opts,
     };
@@ -39,6 +38,5 @@ export class ManagementLayer extends pulumi.ComponentResource {
       resourceGroupName: resourceGroup.name,
       managementSubnetCount: 3,
     }, { parent: resourceGroup });
-
   }
 }
