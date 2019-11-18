@@ -1,8 +1,9 @@
 # pulumi-typescript-poc
 
 ``` javascript
-code --install-extension ms-vscode.vscode-typescript-tslint-plugin
+code --install-extension dbaeumer.vscode-eslint
 npm install
+pulumi stack select dev
 pulumi up
 ```
 

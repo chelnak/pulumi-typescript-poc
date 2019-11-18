@@ -1,12 +1,21 @@
 {
-    "name": "azure-typescript",
-    "devDependencies": {
-        "@types/node": "^8.0.0",
-        "tslint": "^5.20.1",
-        "tslint-config-airbnb": "^5.11.2"
-    },
-    "dependencies": {
-        "@pulumi/azure": "^1.0.0",
-        "@pulumi/pulumi": "^1.0.0"
-    }
+  "name": "azure-typescript",
+  "devDependencies": {
+    "@types/node": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^2.7.0",
+    "eslint-config-airbnb-typescript": "^6.3.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint": "^6.6.0",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^1.7.0"
+  },
+  "dependencies": {
+    "@pulumi/azure": "^1.0.0",
+    "@pulumi/pulumi": "^1.0.0",
+    "eslint-plugin-eslint-comments": "^3.1.2"
+  },
+  "scripts": {
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+  }
 }
