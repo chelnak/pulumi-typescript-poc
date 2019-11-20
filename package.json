@@ -13,7 +13,8 @@
   "dependencies": {
     "@pulumi/azure": "^1.0.0",
     "@pulumi/pulumi": "^1.0.0",
-    "eslint-plugin-eslint-comments": "^3.1.2"
+    "eslint-plugin-eslint-comments": "^3.1.2",
+    "generate-password": "^1.4.2"
   },
   "scripts": {
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
