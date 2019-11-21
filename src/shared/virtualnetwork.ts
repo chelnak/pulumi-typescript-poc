@@ -49,7 +49,7 @@ function subnet(
 
 export class VirtualNetwork extends pulumi.ComponentResource {
   /**
-   * Creates virtual network
+   * Creates a virtual network
    * @param name The _unique_ name of the resource.
    * @param networkArgs The INetworkArgs used to configure the virtual network.
    * @param opts A bag of options that control this resource's behavior.

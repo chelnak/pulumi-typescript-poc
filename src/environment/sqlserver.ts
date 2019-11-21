@@ -16,7 +16,7 @@ const version = '12.0';
 
 export class SqlServer extends pulumi.ComponentResource {
   /**
-   * Creates virtual network
+   * Creates a SQL Server instance
    * @param name The _unique_ name of the resource.
    * @param sqlArgs The ISqlArgs used to configure the sqlServer and it's components.
    * @param opts A bag of options that control this resource's behavior.
