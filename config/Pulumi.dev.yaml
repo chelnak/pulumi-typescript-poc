@@ -1,13 +1,22 @@
 config:
   azure:environment: public
   azure:location: WestEurope
-  metadata:program: cg
-  metadata:service: shared
-  metadata:environments: [at, test, test2, demo]
-  environment:appserviceplan:
-    - name: be
-      size: s1
-    - name: fe
-      size: s1
-  environment:sqlServer:
-    - hasFailover: true
+  layers:environment:
+    service: shared
+    names:
+      - at
+      - test
+      - test2
+      - demo
+    sqlServer:
+      hasFailover: true
+    appServicePlan:
+      - name: be
+        size: s1
+      - name: fe
+        size: s1
+  layers:global:
+    program: cg
+  layers:management:
+    service: mgmt
+    name: dev

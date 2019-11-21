@@ -1,10 +1,7 @@
 import * as pulumi from '@pulumi/pulumi';
 
-export interface ILayerArgs {
-  prefix: string;
-  program: string;
-  environment: string;
-  service: string;
+export interface IEnvironmentLayerArgs {
+  name: string;
   count?: number;
 }
 
