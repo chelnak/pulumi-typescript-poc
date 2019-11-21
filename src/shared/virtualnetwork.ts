@@ -51,7 +51,7 @@ export class VirtualNetwork extends pulumi.ComponentResource {
   /**
    * Creates virtual network
    * @param name The _unique_ name of the resource.
-   * @param networkArgs The arguments to configure the virtual network.
+   * @param networkArgs The INetworkArgs used to configure the virtual network.
    * @param opts A bag of options that control this resource's behavior.
    */
 

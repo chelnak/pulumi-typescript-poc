@@ -17,7 +17,7 @@ export class EnvironmentLayer extends pulumi.ComponentResource {
   /**
    * Creates cloud platform management layer
    * @param name The _unique_ name of the resource.
-   * @param layerArgs A bag of IEnvironmentLayerArgs that configure the resources in this layer.
+   * @param layerArgs The IEnvironmentLayerArgs to configure the resources in this layer.
    * @param opts A bag of options that control this resource's behavior.
    */
 
